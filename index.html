@@ -8,7 +8,18 @@
     html, body { margin:0; padding:0; height:100%; overflow:hidden; }
   </style>
 </head>
-<body>
-<iframe src="https://chat.callme.ai/guest?orgId=327c2184-c657-4629-a012-96c0772b680f&slotId=5ffca42e-473a-45ed-b900-d262142913f8" style="width: 100%; height: 100%; border: none;" allow="camera *;microphone *;fullscreen;clipboard-write" referrerpolicy="origin"></iframe>
+<body onclick="document.querySelector('iframe').contentWindow.postMessage('resume','https://chat.callme.ai')">
+  <script>
+    // Unlock audio context on first user click/tap
+    document.addEventListener('click', function unlock() {
+      const iframe = document.querySelector('iframe');
+      if (iframe) iframe.contentWindow.postMessage('resume-audio', '*');
+      document.removeEventListener('click', unlock);
+    }, { once: true });
+  </script>
+
+  <iframe src="https://chat.callme.ai/guest?orgId=327c2184-c657-4629-a012-96c0772b680f&slotId=5ffca42e-473a-45ed-b900-d262142913f8" 
+          style="width:100%;height:100%;border:none;" 
+          allow="camera; microphone; fullscreen; clipboard-write"></iframe>
 </body>
 </html>
